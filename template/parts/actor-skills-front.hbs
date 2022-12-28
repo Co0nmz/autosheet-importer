@@ -1,0 +1,10 @@
+{{!-- Skill Rank Info --}}
+<nav class="sheet-navigation tabs" data-group="skillset" style="display: none">
+  <a class="item" data-tab="all">{{localize "PF1.AllSkills"}}</a>
+</nav>
+
+<section class="skillset-body">
+  <div class="tab flexcol" data-group="skillset">
+    {{> "modules/autosheet-importer/template/parts/actor-skills.hbs" skillset=skillsets.all.skills isBackgroundSkills="false" skillGroup="adventure"}}
+  </div>
+</section>

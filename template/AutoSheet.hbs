@@ -1,0 +1,246 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+	
+	{{!-- AutoSheet Header --}}
+	<header class="sheet-header flexrow">
+		<img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+
+		<div class="header-details flexcol">
+		  <!-- <div class="header-top flexrow"> -->
+			<h1 class="charname">
+			  <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF1.CharacterName"}}"/>
+			</h1>
+			
+		  <!-- </div> -->
+		</div>
+	</header>
+	
+	{{!-- AutoSheet Navigation --}}
+	<nav class="sheet-navigation tabs" data-group="primary">
+		<a class="item" data-tab="summary">{{localize "PF1.Summary"}}</a>
+		<a class="item" data-tab="skills">{{ localize "PF1.Skills" }}</a>
+		<a class="item" data-tab="notes">{{ localize "PF1.Notes" }}</a>
+	</nav>
+	<section class="primary-body">
+		{{!-- Summary Tab --}}
+		<div class="tab summary" data-group="primary" data-tab="summary">
+			{{!-- Health --}}
+			<table class="health-table">
+				<thead>
+				  <tr>
+					<th>{{localize "PF1.HitPoints"}}</th>
+					<th>{{localize "PF1.TempShort"}}</th>
+					<th>{{localize "PF1.Nonlethal"}}</th>
+					<th class="attribute initiative">
+						<a class="rollable"><i class="fas fa-dice"></i><span>{{localize "PF1.Initiative"}}</span></a>
+					</th>
+				  </tr>
+				</thead>
+
+				<tbody>
+				  <tr>
+					<td>
+						<span class="text-box direct wheel-change allow-relative hp-current-input" name="system.attributes.hp.value" data-dtype="Number">{{system.attributes.hp.value}} / {{system.attributes.hp.max}}</span>
+					</td>
+					<td>
+						<span class="text-box direct allow-relative hp-temp-input" name="system.attributes.hp.temp" data-dtype="Number">{{#if system.attributes.hp.temp}}{{system.attributes.hp.temp}}{{/if}}</span>
+					</td>
+					<td>
+						<span class="text-box direct allow-relative hp-nonlethal-input" name="system.attributes.hp.nonlethal" data-dtype="Number">{{#if system.attributes.hp.nonlethal}}{{system.attributes.hp.nonlethal}}{{/if}}</span>
+					</td>
+					<td class="attribute">
+						<span class="direct allow-relative hp-nonlethal-input" name="system.attributes.init.value" data-dtype="Number">{{system.attributes.init.total}}</span>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			  
+			<span class="divider"><span class="heading"></span></span>
+			
+			{{!-- Ability Scores --}}
+			<table class="ability-table">
+				<thead>
+					<tr>
+						<th class="ability" data-ability="str">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Str
+							</a>
+						</th>
+						<th class="ability" data-ability="dex">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Dex
+							</a>
+						</th>
+						<th class="ability" data-ability="con">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Con
+							</a>
+						</th>
+						<th class="ability" data-ability="int">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Int
+							</a>
+						</th>
+						<th class="ability" data-ability="wis">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Wis
+							</a>
+						</th>
+						<th class="ability" data-ability="cha">
+							<a class="ability-name rollable">
+								<i class="fas fa-dice"></i>
+								Cha
+							</a>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					
+					<tr class="ability">
+						{{#each system.abilities as |ability id|}}
+						{{!-- Total --}}
+						<td>
+							<span class="direct" name="system.abilities.{{id}}.value" data-dtype="String">{{ability.totalLabel}} ({{numberFormat ability.mod decimals=0 sign=true}})</span>
+						</td>
+						{{/each}}
+					</tr>
+				</tbody>
+			</table>
+			{{!-- Ability Scores --}}
+
+			<span class="divider"><span class="heading"></span></span>
+
+			{{!-- Defenses --}}
+			<table class='defenses'>
+				<thead>
+					<tr>
+						{{#each system.attributes.ac as |ac id|}}
+						<th>
+							{{ac.label}}
+						</th>
+						{{/each}}
+						<th>
+							{{localize "PF1.CMDAbbr"}}
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{{#each system.attributes.ac as |ac id|}}
+						<td class='ac-{{id}}'>
+							{{ac.total}}
+						</td>
+						{{/each}}
+						<td class='cmd'>
+							{{system.attributes.cmd.total}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<span class="divider"><span class="heading"></span></span>
+			
+			{{!-- Saving Throws --}}
+			<table>
+				<thead>
+					<tr>
+						{{#each system.attributes.savingThrows as |savingThrow id|}}
+						<th class="saving-throw" data-savingthrow="{{id}}">
+							<a class="rollable"><i class="fas fa-dice"></i><span>{{savingThrow.label}}</span></a>
+						</th>
+						{{/each}}	  
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{{#each system.attributes.savingThrows as |savingThrow id|}}
+						<td>
+							<span class="text-box direct savingthrow-{{id}}-input" name="system.attributes.savingThrows.{{id}}.base">{{savingThrow.total}}</span>
+						</td>
+						{{/each}}
+					</tr>
+				</tbody>
+			</table>
+			
+			<span class="divider"><span class="heading"></span></span>
+			
+			{{!-- Traits --}}
+			<div class="traits flexcol">	  
+				{{!-- Size --}}
+				<div class="form-group">
+					<label>{{localize "PF1.Size"}}:</label>
+					<select name="system.traits.size">
+						{{#select system.traits.size}}
+						{{#each config.actorSizes as |label size|}}
+						<option value="{{size}}">{{label}}</option>
+						{{/each}}
+						{{/select}}
+					</select>
+				</div>
+				
+				{{!-- Speed --}}
+				<div class="form-group">
+					<label>{{localize "PF1.Speed"}}:</label>
+					<ul class="traits-list tag-list">
+						<li >{{#if system.attributes.speed.land.total}}{{convertDistance system.attributes.speed.land.total}} ft.{{/if}}</li>
+					</ul>
+				</div>
+				
+				<td class="attribute">
+						<span class="value direct speed" name="system.attributes.speed.land.base" data-dtype="Number"></span>
+					</td>
+				
+				{{!-- Senses --}}
+				<div class="form-group">
+					<label>{{localize "PF1.Senses"}}:</label>
+					<ul class="traits-list tag-list">
+					{{#each senses as |v k|}}
+					<li class="tag {{k}}">{{v}}</li>
+					{{/each}}
+					</ul>
+					<a class="senses-selector"><i class="fas fa-edit"></i></a>
+				</div>
+
+				{{!-- Languages --}}
+				<div class="form-group {{system.traits.languages.cssClass}} tooltip">
+					<label for="system.traits.languages">{{localize "PF1.Languages"}}:</label>
+					<ul class="traits-list tooltip tag-list">
+					{{#each system.traits.languages.selected as |v k|}}
+					<li class="tag {{k}}">{{v}}</li>
+					{{/each}}
+					{{#if sourceDetails.system.traits.languages.length}}
+					<div class="tooltipcontent">
+					@traits.languages.total<br>
+					<br>
+					{{localize "PF1.FromSources"}}:<br/>
+					{{#each sourceDetails.system.traits.languages as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+					</div>
+					{{/if}}
+					</ul>
+					<a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+				</div>
+			</div>
+
+		</div>
+		<div class="flexcol UpdateAutosheet">
+			<a class="UpdateAutoSheet flex-center">Update <i class="fas fa-refresh"></i></a>
+		</div>
+		{{!-- Skills Tab --}}
+		<div class="tab skills flexcol" data-group="primary" data-tab="skills">
+			{{> "modules/autosheet-importer/template/parts/actor-skills-front.hbs"}}
+		</div>
+		{{!-- Notes Tab --}}
+		<div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+			<div class="primary-content">
+				{{editor notesHTML target="system.details.notes.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+			</div>
+		</div>
+	
+	</section>
+
+</form>

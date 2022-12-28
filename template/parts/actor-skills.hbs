@@ -1,0 +1,77 @@
+{{!-- Skills --}}
+<ul class="skills-list {{skillGroup}}" data-background="{{isBackgroundSkills}}">
+  {{#each skillset as |skill s|}}
+  {{#if skill.arbitrary}}
+  <li class="skill arbitrary" data-skill="{{s}}">
+    <div class="skill-name">
+      <a class="skill-control skill-create" title="Add Skill">
+        <i class="fas fa-plus"></i>
+      </a>
+      {{#if compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}" data-document-type="JournalEntry">
+        <h4>{{skill.label}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{skill.label}}</h4>
+      {{/if}}
+    </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
+  </li>
+  {{#each skill.subSkills as |subSkill b|}}
+  <li class="sub-skill {{#if subSkill.untrained}}untrained{{/if}}" data-skill="{{b}}" data-main-skill="{{s}}">
+    <div class="skill-name tooltip">
+      {{#if subSkill.compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{subSkill.compendiumEntry}}" data-document-type="JournalEntry">
+        <h4>{{subSkill.name}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{subSkill.name}}</h4>
+      {{/if}}
+    </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
+    <span class="skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
+    <div class="skill-controls">
+      {{#unless @root.skillsLocked}}
+      {{#if @root.owner}}
+      <a class="skill-control skill-edit" title="{{localize "PF1.EditSkill"}}"><i class="fas fa-edit"></i></a>
+      <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+      {{/if}}
+      {{/unless}}
+    </div>
+  </li>
+  {{/each}}
+  {{else}}
+  <li class="skill {{#if skill.untrained}}untrained{{/if}}" data-skill="{{s}}">
+    <div class="skill-name tooltip">
+      
+      {{#if compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}" data-document-type="JournalEntry">
+        <h4>{{#if skill.custom}}{{skill.name}}{{else}}{{skill.label}}{{/if}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{#if skill.custom}}{{skill.name}}{{else}}{{skill.label}}{{/if}}</h4>
+      {{/if}}
+    </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
+    <span class="skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+    <div class="skill-controls">
+      {{#unless @root.skillsLocked}}
+      {{#if ../owner}}
+      <a class="skill-control skill-edit" title="{{localize "PF1.EditSkill"}}"><i class="fas fa-edit"></i></a>
+      {{#if skill.custom}}
+      <a class="skill-control skill-delete" title="{{localize "PF1.DeleteSkill"}}"><i class="fas fa-trash"></i></a>
+      {{/if}}{{/if}}
+      {{/unless}}
+    </div>
+  </li>
+  {{/if}}
+  {{/each}}
+  <div class="skill-controls skills">
+    {{#if owner}}
+    <a class="skill-control skill-create">
+      <i class="fas fa-plus"></i>
+      {{localize 'PF1.AddSkill'}}
+    </a>
+    {{/if}}
+  </div>
+</ul>

@@ -1,0 +1,71 @@
+/*
+This just needs regular CSS code relevant to your module if any.
+*/
+.pf1.sheet.actor.AutoSheet {
+	min-width: 300px;
+	max-width: 400px;
+	min-height: 590px;
+	max-height: 590px;
+	width: 100%;
+}
+
+.pf1.sheet.actor.AutoSheet a.UpdateAutoSheet {
+	text-align: right !important;
+    margin: 0 5px;
+}
+
+.pf1.sheet.actor.AutoSheet .UpdateAutoSheet {
+	text-align: right;
+    margin: 0 5px;
+	position: absolute;
+	top:35px;
+	right:5px;
+}
+
+.pf1.sheet.actor.AutoSheet tr.ability {
+	font-size: 10pt; 
+}
+
+.pf1.sheet.actor.AutoSheet ul.skills-list li.skill, .pf1.sheet.actor.AutoSheet ul.skills-list li.sub-skill {
+    padding-left: 0.3em;
+    display: grid;
+    grid-template-columns: auto 24px 3em 40px;
+    height: 2em;
+}
+
+.pf1.sheet.actor.AutoSheet .traits label {
+    flex: 0 0 75px;
+}
+
+.pf1.sheet.actor.AutoSheet hr,
+.pf1.sheet.actor.AutoSheet .divider {
+    display:block;
+    border:0px;
+    height:20px;
+	line-height: 20px;
+    background-image:url('template/img/divider2.png');
+	background-size: cover;
+	background-position: center;
+	opacity: 0.3;
+	text-align: center;	
+	margin-top: 8px;
+}
+
+.pf1.sheet.actor.AutoSheet .heading {
+	display: inline-block;
+	line-height: normal;
+	text-align: center;	
+	vertical-align: middle;
+	background-color: #000000;
+	color: var(--color-text-light-highlight);
+    text-shadow: 1px 1px var(--color-shadow-dark);
+	border-radius: 10px;
+	padding:0px 10px;
+}
+
+
+.pf1.sheet.actor.AutoSheet ul.skills-list,
+.pf1.sheet.actor.AutoSheet .tab.summary{
+    border: 0px;
+}
+

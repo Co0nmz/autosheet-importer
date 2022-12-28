@@ -1,0 +1,27 @@
+{
+  "title": "Autosheet Importer",
+  "description": "Importiert Daten aus dem PF1e Autosheet",
+  "authors": [
+    {
+      "name": "Co0n",
+      "discord": "Co0n#7065",
+      "flags": {}
+    }
+  ],
+  "license": "LICENSE",
+  "readme": "README.md",
+  "version": "1.0.0",
+  "esmodules": [
+    "AutosheetImporter.mjs"
+  ],
+  "styles": [
+    "AutosheetImporter.css"
+  ],
+  "manifest": "https://raw.githubusercontent.com/Co0nmz/AutosheetImporter/main/module.json",
+  "download": "https://raw.githubusercontent.com/Co0nmz/AutosheetImporter/main/AutosheetImporter.zip",
+  "id": "autosheet-importer",
+  "compatibility": {
+    "minimum": "0.8.9",
+    "verified": "0.9"
+  }
+}
